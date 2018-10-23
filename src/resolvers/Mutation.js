@@ -20,6 +20,14 @@ const Mutations = {
         id: args.id
       }
     }, info);
+  },
+  async deleteItem (parent, args, ctx, info) {
+    const where = { id: args.id };
+    // Find item
+    const item = await ctx.db.query.item({ where }, `{ id, title }`);
+    // TODO: Check persmissions on item
+    // Delete it
+    return ctx.db.mutation.deleteItem({ where }, info);
   }
 };
 
